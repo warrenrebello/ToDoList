@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update Item</title>
+{% endblock %}
+{% block body %}
+
+<h1>Update Task</h1>
+<p>If there is a task that needs some change, we can update the description and date of that task.</p>
+<p>Enter the ID of the task that needs to be Updated.</p>
+
+<br>
+
+<form action="/gettask/update" method="POST">
+    <table border="1" style="margin-left: auto; margin-right: auto; text-align: center; border: 1px solid black; border-width: 2px;">
+        <tr>
+            <td>Enter Task ID</td>
+            <td><input type=text name="task"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" name="Update"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="/">Back to Main Page</a></td>
+        </tr>
+    </table>
+</form>
+<br>
+
+{% if error %}
+<script type="text/javascript">
+    alert("The task ID does not exist. Please enter a correct ID from the below list.");
+    </script>
+<br>
+{% endif %}
+
+<table border = 1 style="margin-left: auto; margin-right: auto; text-align: center; border: 1px solid black; border-width: 2px;" width=800>
+    <tr>
+        <th style="width: 35px;">ID</th>
+        <th>ITEM</th>
+        <th width="400">DESCRIPTION</th>
+        <th>DUE DATE</th>
+        <th>DAYS LEFT</th>
+    </tr>
+    {% for each in all_tasks %}
+    <tr>
+        <td>{{each[0]}}</td>
+        <td>{{each[1]}}</td>
+        <td width="400">{{each[2]}}</td>
+        <td>{{each[3]}}</td>
+        {% if days[all_tasks.index(each)] == 0 %}
+        <td style="background-color: orange;">Due Today</td>
+        {% elif days[all_tasks.index(each)] == 1 %}
+        <td style="background-color: yellow;">Due Tomorrow</td>
+        {% elif days[all_tasks.index(each)] < 0 %}
+        <td style="background-color: red;">Expired</td>
+        {% else %}
+        <td style="background-color:greenyellow;">{{days[all_tasks.index(each)]}}</td>
+        {% endif %}
+    </tr>    
+    {% endfor %}
+    {% if not all_tasks %}
+        <tr>
+            <td colspan="5">No items in the list</td>
+        </tr>
+    {% endif %}
+
+
+</table>
+{% endblock %}

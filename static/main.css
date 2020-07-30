@@ -1,0 +1,28 @@
+body {
+    background-color: lightblue;
+  }
+
+h1.class {
+    font-family:  verdana;
+    text-align: center;
+}
+
+p.center {
+    font-family:  verdana;
+}
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    border: black;
+    border-width: 1;
+}
+
+th {
+    height: 50px;
+}
+
+table, th, tr, td {
+    border: 1px solid black;
+}

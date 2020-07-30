@@ -1,0 +1,1 @@
+create table ToDoList (id int primary key auto_increment, task varchar(30), description varchar (100), due_date date);

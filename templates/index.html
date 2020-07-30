@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block body %}
+
+<h1>Welcome</h1>
+<p>This is a To-Do List application. Just as how one would keep a planner for future work/activities, this application works on the same priciple.</p>
+<p>Through this application, it is a lot easier to manage your planner, and to also save on paper. Lets get started!</p>
+
+<br>
+
+<table border="1" style="margin-left: auto; margin-right: auto; text-align: center; border: 1px solid black; border-width: 2px;" width="250">
+    <tr>
+        <th>Select an Option</th>
+    </tr>
+    <tr>
+        <td><a href="view">View Items</a></td>
+    </tr>
+    <tr>
+        <td><a href="add">Add Items</a></td>
+    </tr>
+    <tr>
+        <td><a href="update">Update Items</a></td>
+    <tr>
+        <td><a href="delete">Delete Items</a></td>
+    </tr>
+</table>
+<br><br>
+
+{% if added %}
+<script type="text/javascript">
+    alert("New task has been Added.");
+    window.location = '/';
+</script>
+{% endif %}
+
+{% if updated %}
+<script type="text/javascript">
+    alert("Task has been Updated.");
+    window.location = '/';
+</script>
+{% endif %}
+
+{% if deleted %}
+<script type="text/javascript">
+    alert("Task has been Deleted.");
+    window.location = '/';
+</script>   
+{% endif %}
+
+
+{% if no_table %}
+<p>Table does not exist</p>
+{% endif %}
+
+
+{% if view %}
+
+    {% if all_tasks %}
+    <table border = 1 style="margin-left: auto; margin-right: auto; text-align: center; border: 1px solid black; border-width: 2px;" width=800>
+        <tr>
+            <th style="width: 35px;">ID</th>
+            <th>ITEM</th>
+            <th width="400">DESCRIPTION</th>
+            <th>DUE DATE</th>
+            <th>DAYS</th>
+        </tr>
+        {% for each in all_tasks %}
+        <tr>
+            <td>{{each[0]}}</td>
+            <td>{{each[1]}}</td>
+            <td width="400">{{each[2]}}</td>
+            <td>{{each[3]}}</td>
+            {% if days[all_tasks.index(each)] == 0 %}
+            <td style="background-color: orange;">Due Today</td>
+            {% elif days[all_tasks.index(each)] == 1 %}
+            <td style="background-color: yellow;">Due Tomorrow</td>
+            {% elif days[all_tasks.index(each)] < 0 %}
+            <td style="background-color: red;">Expired</td>
+            {% else %}
+            <td style="background-color:greenyellow;">{{days[all_tasks.index(each)]}}</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="5"><a href="/">Close Table</a></td>
+        </tr>
+    </table>
+
+    {% endif %}
+
+    {% if not all_tasks %}
+    <table border = 1 style="margin-left: auto; margin-right: auto; text-align: center; border: 1px solid black; border-width: 2px;" width=800>
+        <tr>
+            <th style="width: 35px;">ID</th>
+            <th>ITEM</th>
+            <th width="400">DESCRIPTION</th>
+            <th>DUE DATE</th>
+            <th>DAYS</th>
+        </tr>
+        <tr>
+            <td colspan="5">No items in the list</td>
+        </tr>
+    </table>
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

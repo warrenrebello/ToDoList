@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update Item</title>
+{% endblock %}
+
+{% block body %}
+<form action="/updatetask/{{ task_info[0] }}" method="POST" id="/updatetask/{{ task_info[0] }}">
+    <table border="1" style="margin-left: auto; margin-right: auto; text-align: center;" width=400>
+        <tr>
+            <td>ID</td>
+            <td>{{ task_info[0] }}</td>
+        </tr>
+        <tr>
+            <td>Task</td>
+            <td>{{ task_info[1] }}</td>
+        </tr>
+        <tr style="vertical-align: top;">
+            <td style="vertical-align: top;">Description</td>
+            <td style="vertical-align: top;"><textarea form="/updatetask/{{ task_info[0] }}" name="description" placeholder="Enter Description" rows="3" maxlength="100" wrap="soft" style="resize: none; width: 250px; font-family: Arial, Helvetica, sans-serif;" method="POST">{{ task_info[2] }}</textarea></td>
+        </tr>
+        <tr>
+            <td>Time</td>
+            <td><input type="date" name="date" required style="width: 250px;" required min="{{date_today}}" value={{task_info[3]}}></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Update Item"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><a href="/">Back to Main Page</a></td>
+        </tr>
+    </table>
+</form>
+{% endblock %}
